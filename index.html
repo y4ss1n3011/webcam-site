@@ -3,14 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Webcam Live</title>
+<title>Webcam</title>
 
 <style>
 html, body {
     margin: 0;
     height: 100%;
     overflow: hidden;
-    background: black;
 }
 
 video {
@@ -21,12 +20,46 @@ video {
     height: 100%;
     object-fit: cover;
 }
+
+/* LED in basso a destra */
+#ledText {
+    position: fixed;
+    bottom: 30px;
+    right: 10px;
+    font-size: 18px;
+    font-weight: bold;
+    font-family: Arial;
+    animation: led 1s infinite;
+}
+
+/* effetto LED colorato */
+@keyframes led {
+    0% { color: red; }
+    25% { color: orange; }
+    50% { color: yellow; }
+    75% { color: lime; }
+    100% { color: red; }
+}
+
+/* info dispositivo */
+#deviceInfo {
+    position: fixed;
+    bottom: 10px;
+    right: 10px;
+    font-size: 12px;
+    color: white;
+    opacity: 0.7;
+    font-family: Arial;
+}
 </style>
 </head>
 
 <body>
 
-<video id="video" autoplay playsinline muted></video>
+<div id="ledText">LIVE</div>
+<div id="deviceInfo"></div>
+
+<video id="video" autoplay playsinline></video>
 
 <script>
 navigator.mediaDevices.getUserMedia({ video: true })
@@ -36,6 +69,13 @@ navigator.mediaDevices.getUserMedia({ video: true })
 .catch(err => {
     alert("Webcam non disponibile o permesso negato");
 });
+
+document.getElementById("deviceInfo").innerText =
+navigator.userAgent;
+
+// 🔴 CAMBIA QUI IL TESTO LED
+document.getElementById("ledText").innerText =
+"DB è GAY";
 </script>
 
 </body>
